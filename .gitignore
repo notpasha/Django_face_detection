@@ -1,0 +1,3 @@
+/venv/*
+/face_detection/db.sqlite3
+/face_detection/input_images/*
