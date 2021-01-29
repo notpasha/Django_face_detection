@@ -1,3 +1,6 @@
-/venv/*
-/face_detection/db.sqlite3
-/face_detection/input_images/*
+.idea/**
+venv/**
+.DS_Store
+.idea
+face_detection/input_images/**
+face_detection/db.sqlite3
