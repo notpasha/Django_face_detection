@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import DetectionImages
+from .models import DetectionImages, DetectedFaces
 
 
 class ImagePOSTSerializer(serializers.ModelSerializer):
@@ -27,12 +27,22 @@ class ImagePOSTResponseSerializer(serializers.ModelSerializer):
         return obj.owner.username
 
 
+class DetectedFacesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = DetectedFaces
+        fields = ('x1', 'y1', 'x2', 'y2')
+
+
 class ProcessedImagesListSerializer(serializers.ModelSerializer):
-    owner = serializers.SerializerMethodField()
+    faces = serializers.SerializerMethodField()
 
     class Meta:
         model = DetectionImages
-        fields = ('pk', 'owner', 'input_image', 'downloaded_at', 'status', 'output_image')
+        fields = ('downloaded_at', 'output_image', 'faces')
 
-    def get_owner(self, obj):
-        return obj.owner.username
+    def get_faces(self, obj):
+        faces = obj.detectedfaces_set.all()
+        return DetectedFacesSerializer(
+            faces, many=True,
+            context={'request': self.context.get('request')}).data
