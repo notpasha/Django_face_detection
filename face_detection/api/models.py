@@ -11,9 +11,9 @@ IMAGE_STATUSES = (
 
 class DetectionImages(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    input_image = models.ImageField(upload_to=f'input_images/')
+    input_image = models.ImageField(upload_to=f'input_images/', max_length=500)
     downloaded_at = models.DateTimeField(auto_now_add=True)
-    output_image = models.ImageField()
+    output_image = models.ImageField(max_length=500)
     status = models.CharField(choices=IMAGE_STATUSES, default='new', max_length=10)
 
 

@@ -34,9 +34,9 @@ def detect_faces(image_object: DetectionImages,
                                      x2=x+w,
                                      y2=y+h)
         cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
-    cv2.imwrite('output_images/random.jpg', image)
-    image_object.output_image.save(f'output_images/{image_object.owner.username}.jpg',
-                                   File(open('output_images/random.jpg', 'rb')))
-    os.remove('output_images/random.jpg')
+    cv2.imwrite(str(BASE_DIR) +'/output_images/random.jpg', image)
+    image_object.output_image.save(str(BASE_DIR) + f'/output_images/{image_object.owner.username}.jpg',
+                                   File(open(str(BASE_DIR) +'/output_images/random.jpg', 'rb')))
+    os.remove(str(BASE_DIR) + '/output_images/random.jpg')
     image_object.status = 'finished'
     image_object.save()
